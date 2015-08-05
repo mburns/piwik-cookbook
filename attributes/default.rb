@@ -1,4 +1,4 @@
-default['piwik']['version'] = '1.5.1'
+default['piwik']['version'] = '2.14.3'
 default['piwik']['install_path'] = '/var/www'
 
 default['piwik']['php_fcgi_memory_limit'] = '128M'
