@@ -8,5 +8,5 @@ template "#{node['piwik']['install_path']}/piwik/config/config.ini.php" do
   variables(
     config: node['piwik']['config']
   )
-  notifies :restart, resources(service: 'php-fastcgi'), :delayed
+  notifies :restart, 'service[php-fastcgi]', :delayed
 end

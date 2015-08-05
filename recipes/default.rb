@@ -29,15 +29,15 @@ template "#{node['nginx']['dir']}/sites-available/piwik" do
     php_fcgi_pass: node['piwik']['php_fcgi_pass'],
     piwik_install_path: node['piwik']['install_path']
   )
-  notifies :restart, resources(service: 'nginx')
+  notifies :restart, 'service[nginx]'
 end
 
 bash 'enable piwik site' do
   user 'root'
   cwd node['nginx']['dir']
   code 'nxensite piwik'
-  not_if { ::File.exists?('/etc/nginx/sites-enabled/piwik') }
-  notifies :restart, resources(service: 'nginx')
+  not_if { ::File.exist?('/etc/nginx/sites-enabled/piwik') }
+  notifies :restart, 'service[nginx]'
 end
 
 include_recipe 'logrotate'
@@ -57,7 +57,7 @@ include_recipe 'runit'
 runit_service 'php-fastcgi' do
   options bind_path: node['piwik']['php_fcgi_bind_path']
   env 'PHP_FCGI_CHILDREN' => node['piwik']['php_fcgi_children'], 'PHP_FCGI_MAX_REQUESTS' => node['piwik']['php_fcgi_max_requests']
-  notifies :restart, resources(service: :nginx), :delayed
+  notifies :restart, 'service[nginx]', :delayed
 end
 
 template '/etc/php5/cgi/php.ini' do
@@ -68,7 +68,7 @@ template '/etc/php5/cgi/php.ini' do
   variables(
     memory_limit: node['piwik']['php_fcgi_memory_limit']
   )
-  notifies :restart, resources(service: 'php-fastcgi'), :delayed
+  notifies :restart, 'service[php-fastcgi]'
 end
 
 remote_file "#{Chef::Config[:file_cache_path]}/piwik-#{node['piwik']['version']}.tar.gz" do
@@ -87,8 +87,8 @@ bash 'install_piwik' do
   user 'root'
   code <<-EOH
     tar zxf piwik-#{node['piwik']['version']}.tar.gz
-    mv piwik #{node['piwik'][:install_path]}
-    echo '#{node['piwik']['version']}' > #{node['piwik'][:install_path]}/piwik/VERSION
+    mv piwik #{node['piwik']['install_path']}
+    echo '#{node['piwik']['version']}' > #{node['piwik']['install_path']}/piwik/VERSION
   EOH
-  not_if "test `cat #{node['piwik'][:install_path]}/piwik/VERSION` = #{node['piwik']['version']}"
+  not_if "test `cat #{node['piwik']['install_path']}/piwik/VERSION` = #{node['piwik']['version']}"
 end
