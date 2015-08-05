@@ -86,7 +86,7 @@ piwik installation. You can now use a load balancer to distribute tracking reque
 LICENSE and AUTHOR
 ==================
 
-Author:: Matthias Marschall (<joshua@opscode.com>)
+Author:: Matthias Marschall (<mm@agileweboperations.com>)
 
 Copyright:: 2011, gutefrage.net GmbH
 
