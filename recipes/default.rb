@@ -17,58 +17,58 @@
 # limitations under the License.
 #
 
-include_recipe "mysql::client"
+include_recipe 'mysql::client'
 
-include_recipe "nginx::source"
+include_recipe 'nginx::source'
 template "#{node[:nginx][:dir]}/sites-available/piwik" do
-  source "nginx-site-piwik.erb"
-  owner  "root"
-  group  "root"
-  mode   "0644"
+  source 'nginx-site-piwik.erb'
+  owner 'root'
+  group 'root'
+  mode '0644'
   variables(
-      :php_fcgi_pass => node[:piwik][:php_fcgi_pass],
-      :piwik_install_path => node[:piwik][:install_path]
+    php_fcgi_pass: node[:piwik][:php_fcgi_pass],
+    piwik_install_path: node[:piwik][:install_path]
   )
-  notifies :restart, resources(:service => "nginx")
+  notifies :restart, resources(service: 'nginx')
 end
 
-bash "enable piwik site" do
-  user     "root"
-  cwd      node[:nginx][:dir]
-  code     "nxensite piwik"
-  not_if   "ls /etc/nginx/sites-enabled/piwik"
-  notifies :restart, resources(:service => "nginx")
+bash 'enable piwik site' do
+  user 'root'
+  cwd node[:nginx][:dir]
+  code 'nxensite piwik'
+  not_if 'ls /etc/nginx/sites-enabled/piwik'
+  notifies :restart, resources(service: 'nginx')
 end
 
-include_recipe "logrotate"
+include_recipe 'logrotate'
 logrotate_app 'nginx' do
-  paths      File.join(node[:nginx][:log_dir], "*.log")
-  rotate     35
-  period     "daily"
-  postrotate "test ! -f /var/run/nginx.pid || kill -USR1 `cat /var/run/nginx.pid`"
+  paths File.join(node[:nginx][:log_dir], '*.log')
+  rotate 35
+  period 'daily'
+  postrotate 'test ! -f /var/run/nginx.pid || kill -USR1 `cat /var/run/nginx.pid`'
 end
 
-include_recipe "iptables"
-iptables_rule "iptables_http"
+include_recipe 'iptables'
+iptables_rule 'iptables_http'
 
-%w(php5-cgi php5-cli php5 php5-gd php5-mysql).each {|pkg| package pkg }
+%w(php5-cgi php5-cli php5 php5-gd php5-mysql).each { |pkg| package pkg }
 
-include_recipe "runit"
-runit_service "php-fastcgi" do
-  options :bind_path => node[:piwik][:php_fcgi_bind_path]
-  env "PHP_FCGI_CHILDREN" => node[:piwik][:php_fcgi_children], "PHP_FCGI_MAX_REQUESTS" => node[:piwik][:php_fcgi_max_requests]
-  notifies :restart, resources(:service => :nginx), :delayed
+include_recipe 'runit'
+runit_service 'php-fastcgi' do
+  options bind_path: node[:piwik][:php_fcgi_bind_path]
+  env 'PHP_FCGI_CHILDREN' => node[:piwik][:php_fcgi_children], 'PHP_FCGI_MAX_REQUESTS' => node[:piwik][:php_fcgi_max_requests]
+  notifies :restart, resources(service: :nginx), :delayed
 end
 
-template "/etc/php5/cgi/php.ini" do
-  source "php.ini.erb"
-  owner  "root"
-  group  "root"
-  mode   "0644"
+template '/etc/php5/cgi/php.ini' do
+  source 'php.ini.erb'
+  owner 'root'
+  group 'root'
+  mode '0644'
   variables(
-      :memory_limit => node[:piwik][:php_fcgi_memory_limit]
+    memory_limit: node[:piwik][:php_fcgi_memory_limit]
   )
-  notifies :restart, resources(:service => "php-fastcgi"), :delayed
+  notifies :restart, resources(service: 'php-fastcgi'), :delayed
 end
 
 piwik_version = node[:piwik][:version]
@@ -84,7 +84,7 @@ directory node[:piwik][:install_path] do
   action :create
 end
 
-bash "install_piwik" do
+bash 'install_piwik' do
   cwd Chef::Config[:file_cache_path]
   user 'root'
   code <<-EOH
