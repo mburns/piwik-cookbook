@@ -20,29 +20,29 @@
 include_recipe 'mysql::client'
 
 include_recipe 'nginx::source'
-template "#{node[:nginx][:dir]}/sites-available/piwik" do
+template "#{node['nginx']['dir']}/sites-available/piwik" do
   source 'nginx-site-piwik.erb'
   owner 'root'
   group 'root'
   mode '0644'
   variables(
-    php_fcgi_pass: node[:piwik][:php_fcgi_pass],
-    piwik_install_path: node[:piwik][:install_path]
+    php_fcgi_pass: node['piwik']['php_fcgi_pass'],
+    piwik_install_path: node['piwik']['install_path']
   )
   notifies :restart, resources(service: 'nginx')
 end
 
 bash 'enable piwik site' do
   user 'root'
-  cwd node[:nginx][:dir]
+  cwd node['nginx']['dir']
   code 'nxensite piwik'
-  not_if 'ls /etc/nginx/sites-enabled/piwik'
+  not_if { ::File.exists?('/etc/nginx/sites-enabled/piwik') }
   notifies :restart, resources(service: 'nginx')
 end
 
 include_recipe 'logrotate'
 logrotate_app 'nginx' do
-  paths File.join(node[:nginx][:log_dir], '*.log')
+  paths File.join(node['nginx']['log_dir'], '*.log')
   rotate 35
   period 'daily'
   postrotate 'test ! -f /var/run/nginx.pid || kill -USR1 `cat /var/run/nginx.pid`'
@@ -55,8 +55,8 @@ iptables_rule 'iptables_http'
 
 include_recipe 'runit'
 runit_service 'php-fastcgi' do
-  options bind_path: node[:piwik][:php_fcgi_bind_path]
-  env 'PHP_FCGI_CHILDREN' => node[:piwik][:php_fcgi_children], 'PHP_FCGI_MAX_REQUESTS' => node[:piwik][:php_fcgi_max_requests]
+  options bind_path: node['piwik']['php_fcgi_bind_path']
+  env 'PHP_FCGI_CHILDREN' => node['piwik']['php_fcgi_children'], 'PHP_FCGI_MAX_REQUESTS' => node['piwik']['php_fcgi_max_requests']
   notifies :restart, resources(service: :nginx), :delayed
 end
 
@@ -66,21 +66,19 @@ template '/etc/php5/cgi/php.ini' do
   group 'root'
   mode '0644'
   variables(
-    memory_limit: node[:piwik][:php_fcgi_memory_limit]
+    memory_limit: node['piwik']['php_fcgi_memory_limit']
   )
   notifies :restart, resources(service: 'php-fastcgi'), :delayed
 end
 
-piwik_version = node[:piwik][:version]
-
-remote_file "#{Chef::Config[:file_cache_path]}/piwik-#{piwik_version}.tar.gz" do
-  source "http://builds.piwik.org/piwik-#{piwik_version}.tar.gz"
+remote_file "#{Chef::Config[:file_cache_path]}/piwik-#{node['piwik']['version']}.tar.gz" do
+  source "http://builds.piwik.org/piwik-#{node['piwik']['version']}.tar.gz"
   action :create_if_missing
 end
 
-directory node[:piwik][:install_path] do
+directory node['piwik']['install_path'] do
   mode 0755
-  owner node[:nginx][:user]
+  owner node['nginx']['user']
   action :create
 end
 
@@ -88,9 +86,9 @@ bash 'install_piwik' do
   cwd Chef::Config[:file_cache_path]
   user 'root'
   code <<-EOH
-    tar zxf piwik-#{piwik_version}.tar.gz
-    mv piwik #{node[:piwik][:install_path]}
-    echo '#{piwik_version}' > #{node[:piwik][:install_path]}/piwik/VERSION
+    tar zxf piwik-#{node['piwik']['version']}.tar.gz
+    mv piwik #{node['piwik'][:install_path]}
+    echo '#{node['piwik']['version']}' > #{node['piwik'][:install_path]}/piwik/VERSION
   EOH
-  not_if "test `cat #{node[:piwik][:install_path]}/piwik/VERSION` = #{piwik_version}"
+  not_if "test `cat #{node['piwik'][:install_path]}/piwik/VERSION` = #{node['piwik']['version']}"
 end
