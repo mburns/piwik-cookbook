@@ -1,20 +1,20 @@
 ; <?php exit; ?> DO NOT REMOVE THIS LINE
 ; file automatically generated or modified by Chef; you can manually override the default values in global.ini.php by redefining them in this file.
 [superuser]
-login = "<%= @config[:superuser][:login]%>"
-password = "<%= @config[:superuser][:password]%>"
-email = "<%= @config[:superuser][:email]%>"
-salt = "<%= @config[:superuser][:salt]%>"
+login = "<%= @config['superuser']['login'] %>"
+password = "<%= @config['superuser']['password'] %>"
+email = "<%= @config['superuser']['email'] %>"
+salt = "<%= @config['superuser']['salt'] %>"
 
 [database]
-host = "<%= @config[:database][:host]%>"
-username = "<%= @config[:database][:username]%>"
-password = "<%= @config[:database][:password]%>"
-dbname = "<%= @config[:database][:dbname]%>"
-tables_prefix = "<%= @config[:database][:tables_prefix]%>"
-adapter = "<%= @config[:database][:adapter]%>"
-port = <%= @config[:database][:port]%>
-charset = "<%= @config[:database][:charset]%>"
+host = "<%= @config['database']['host'] %>"
+username = "<%= @config['database']['username'] %>"
+password = "<%= @config['database']['password'] %>"
+dbname = "<%= @config['database']['dbname'] %>"
+tables_prefix = "<%= @config['database']['tables_prefix'] %>"
+adapter = "<%= @config['database']['adapter'] %>"
+port = <%= @config['database']['port'] %>
+charset = "<%= @config['database']['charset'] %>"
 
 [PluginsInstalled]
 PluginsInstalled[] = "Login"
