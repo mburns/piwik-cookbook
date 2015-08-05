@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/mburns/piwik-cookbook.svg)](https://travis-ci.org/mburns/piwik-cookbook)
+[![Chef cookbook](https://img.shields.io/cookbook/v/piwik.svg)](https://supermarket.chef.io/cookbooks/piwik)
+
 DESCRIPTION
 ===========
 
