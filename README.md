@@ -1,13 +1,13 @@
 DESCRIPTION
-====
+===========
 
-Installs piwik using nginx and php-fastcgi either on a single server or on a cluster of server for high traffic sites.
+Installs [piwik](http://piwik.org/) using nginx and php-fastcgi either on a single server or on a cluster of server for high traffic sites.
 
 REQUIREMENTS
-====
+============
 
 Cookbooks
-----
+---------
 
 * mysql-client (to enable piwik to connect to it's MySQL server)
 * runit (for managing nginx and php-fastcgi)
@@ -17,12 +17,18 @@ Cookbooks
 
 
 Platform
-----
+--------
 
-Debian or Ubuntu though may work where 'build-essential' works, but other platforms are untested.
+Tested on:
+
+* Debian 7
+
+* Ubuntu 14.04
+
+May work where 'build-essential' works, but other platforms are untested.
 
 ATTRIBUTES
-====
+==========
 
 All node attributes are set under the `piwik` namespace.
 
@@ -52,16 +58,16 @@ The following attributes are only used by the 'piwik::slave' recipe to connect i
 
 
 USAGE
-====
+=====
 
 For low traffic sites
-----
+---------------------
 
 Just add 'recipe[piwik]' to your node's run list. This will download and install piwik on the host. It will ask you for
 superuser and database connection params when you first hit /index.php on your new piwik server.
 
 For high traffic sites
-----
+----------------------
 
 If you run a medium to high traffic site (> 100.000 visits/day) you should use the 'piwik::master' and 'piwik::slave'
 recipes. The 'piwik::master' will install piwik on the host using the default recipe. You'll need to do the manual
@@ -78,7 +84,7 @@ piwik installation. You can now use a load balancer to distribute tracking reque
 
 
 LICENSE and AUTHOR
-====
+==================
 
 Author:: Matthias Marschall (<joshua@opscode.com>)
 
