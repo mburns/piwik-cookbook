@@ -28,7 +28,7 @@ Tested on:
 
 * Ubuntu 14.04
 
-May work where 'build-essential' works, but other platforms are untested.
+May work where `build-essential` works, but other platforms are untested.
 
 ATTRIBUTES
 ==========
@@ -64,23 +64,23 @@ USAGE
 For low traffic sites
 ---------------------
 
-Just add 'recipe[piwik]' to your node's run list. This will download and install piwik on the host. It will ask you for
-superuser and database connection params when you first hit /index.php on your new piwik server.
+Just add `recipe[piwik]` to your node's run list. This will download and install piwik on the host. It will ask you for
+superuser and database connection params when you first hit `/index.php` on your new piwik server.
 
 For high traffic sites
 ----------------------
 
-If you run a medium to high traffic site (> 100.000 visits/day) you should use the 'piwik::master' and 'piwik::slave'
-recipes. The 'piwik::master' will install piwik on the host using the default recipe. You'll need to do the manual
-piwik configuration hitting /index.php as described above.
+If you run a medium to high traffic site (> 100.000 visits/day) you should use the `piwik::master` and `piwik::slave`
+recipes. The `piwik::master` will install piwik on the host using the default recipe. You'll need to do the manual
+piwik configuration hitting `/index.php` as described above.
 
-Additionally the 'piwik::master' recipe will install an hourly cron job to run the piwik archive.sh script to
+Additionally the `piwik::master` recipe will install an hourly cron job to run the piwik `archive.sh` script to
 pre-calculate reports. You should disable report generation on hitting the frontend in the piwik settings.
 
 If you want to setup a cluster of piwik tracking servers, all connected to the very same piwik DB, you can setup
-additional tracking servers using the 'piwik::slave' recipe. To be able to use it, go to your (manually configured)
-master and take all required values from piwik/config/config.ini.php and overwrite the attributes of the piwik
-cookbook with those values. Then a new server using the 'piwik::slave'recipe will automatically connect to the existing
+additional tracking servers using the `piwik::slave` recipe. To be able to use it, go to your (manually configured)
+master and take all required values from `piwik/config/config.ini.php` and overwrite the attributes of the piwik
+cookbook with those values. Then a new server using the `piwik::slave` recipe will automatically connect to the existing
 piwik installation. You can now use a load balancer to distribute tracking requests to all of your piwik servers.
 
 
