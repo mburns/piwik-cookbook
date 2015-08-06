@@ -89,8 +89,8 @@ piwik installation. You can now use a load balancer to distribute tracking reque
 LICENSE and AUTHOR
 ==================
 
-Author:: Michael Burns
-Author:: Matthias Marschall (<mm@agileweboperations.com>)
+- Author:: Michael Burns
+- Author:: Matthias Marschall (<mm@agileweboperations.com>)
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
