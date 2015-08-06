@@ -33,7 +33,7 @@ May work where 'build-essential' works, but other platforms are untested.
 ATTRIBUTES
 ==========
 
-* `node['piwik']['version']` - The piwik version to install, default is `1.5.1`. It will upgrade the installation, if you change that value later.
+* `node['piwik']['version']` - The piwik version to install or upgrade to, default is `1.5.1`
 * `node['piwik']['install_path']` - The path where the web server will expect the piwik dir to live, default is `/var/www`
 
 * `node['piwik']['php_fcgi_memory_limit']` - The memory limit for PHP, default is `128M`
