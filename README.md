@@ -4,7 +4,7 @@
 DESCRIPTION
 ===========
 
-Installs [piwik](http://piwik.org/) using nginx and php-fastcgi either on a single server or on a cluster of server for high traffic sites.
+Installs [piwik](http://piwik.org/) using nginx and php-fastcgi either on a single server or on a cluster of servers for high traffic sites.
 
 REQUIREMENTS
 ============
@@ -89,9 +89,8 @@ piwik installation. You can now use a load balancer to distribute tracking reque
 LICENSE and AUTHOR
 ==================
 
+Author:: Michael Burns
 Author:: Matthias Marschall (<mm@agileweboperations.com>)
-
-Copyright:: 2011, gutefrage.net GmbH
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
