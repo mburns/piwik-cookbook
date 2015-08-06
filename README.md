@@ -33,8 +33,6 @@ May work where 'build-essential' works, but other platforms are untested.
 ATTRIBUTES
 ==========
 
-All node attributes are set under the `piwik` namespace.
-
 * `node['piwik']['version']` - The piwik version to install, default is `1.5.1`. It will upgrade the installation, if you change that value later.
 * `node['piwik']['install_path']` - The path where the web server will expect the piwik dir to live, default is `/var/www`
 
