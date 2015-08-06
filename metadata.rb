@@ -1,6 +1,5 @@
 name 'piwik'
-maintainer 'gutefrage.net GmbH'
-maintainer_email 'matthias.marschall@gutefrage.net'
+maintainer 'Michael Burns'
 license 'Apache 2.0'
 description 'Installs/Configures piwik'
 version '0.2.2'
