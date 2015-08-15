@@ -1,5 +1,6 @@
 name 'piwik'
 maintainer 'Michael Burns'
+maintainer_email 'michael@mirwin.net'
 license 'Apache 2.0'
 description 'Installs/Configures piwik'
 version '0.2.2'
