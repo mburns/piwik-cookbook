@@ -4,4 +4,6 @@
 
 require_relative 'spec_helper'
 
-# cron
+describe cron do
+  it { should have_entry '* * * 12 * /var/www/piwik/misc/cron/archive.sh > /dev/null' }
+end

@@ -11,4 +11,10 @@ end
 describe file('/var/www/piwik/config/config.ini.php') do
   it { should be_file }
   it { should be_mode 644 }
+  it { should be_owned_by 'www-data' }
+  it { should be_grouped_into 'www-data' }
+  its(:content) { should match /3306/ }
+  # its(:content) { should match /piwik/ }
+  its(:content) { should match /piwik_/ }
+  its(:content) { should match /utf8/ }
 end
