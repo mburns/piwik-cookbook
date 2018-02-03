@@ -3,7 +3,7 @@ maintainer 'Michael Burns'
 maintainer_email 'michael@mirwin.net'
 license 'Apache 2.0'
 description 'Installs/Configures piwik'
-version '0.2.2'
+version '0.2.3'
 
 recipe 'piwik::default', 'Installs and configures piwik'
 recipe 'piwik::master', "This recipe installs piwik on one host and let's you configure it by hitting /index.php. It will run archive.sh hourly on this host"
