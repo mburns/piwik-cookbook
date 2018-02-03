@@ -1,12 +1,12 @@
 source 'https://rubygems.org'
 
 group :lint do
-  gem 'foodcritic', '~> 3.0'
-  gem 'rubocop', '~> 0.24'
+  gem 'foodcritic'
+  gem 'rubocop'
 end
 
 group :unit do
-  gem 'berkshelf', '~> 3'
+  gem 'berkshelf'
   gem 'chefspec'
   gem 'chef-sugar'
   gem 'sshkey'
