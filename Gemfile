@@ -7,8 +7,8 @@ end
 
 group :unit do
   gem 'berkshelf'
-  gem 'chefspec'
   gem 'chef-sugar'
+  gem 'chefspec'
   gem 'sshkey'
   gem 'vagrant-wrapper'
 end
@@ -22,9 +22,9 @@ group :kitchen_vagrant do
 end
 
 group :development do
-  gem 'guard'
-  gem 'guard-kitchen'
-  gem 'guard-foodcritic'
-  gem 'guard-rubocop'
   gem 'fauxhai'
+  gem 'guard'
+  gem 'guard-foodcritic'
+  gem 'guard-kitchen'
+  gem 'guard-rubocop'
 end

@@ -4,7 +4,7 @@ require_relative 'spec_helper'
 describe 'piwik::default' do
   before { stub_resources }
 
-  let(:chef_run) { ChefSpec::SoloRunner(step_into: %w(iptables logrotate runit)).converge(described_recipe) }
+  let(:chef_run) { ChefSpec::SoloRunner(step_into: %w[iptables logrotate runit]).converge(described_recipe) }
 
   it 'enables piwik virtualhost' do
     expect(chef_run).to run_bash('enable piwik site')

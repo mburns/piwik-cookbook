@@ -49,7 +49,7 @@ end
 include_recipe 'iptables'
 iptables_rule 'iptables_http'
 
-%w(php5-cgi php5-cli php5 php5-gd php5-mysql).each { |pkg| package pkg }
+%w[php5-cgi php5-cli php5 php5-gd php5-mysql].each { |pkg| package pkg }
 
 include_recipe 'runit'
 runit_service 'php-fastcgi' do
@@ -75,7 +75,7 @@ remote_file "#{Chef::Config[:file_cache_path]}/piwik-#{node['piwik']['version']}
 end
 
 directory node['piwik']['install_path'] do
-  mode 0755
+  mode 0o755
   owner node['nginx']['user']
   action :create
 end
