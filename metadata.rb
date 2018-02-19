@@ -13,7 +13,7 @@ recipe 'piwik::default', 'Installs and configures piwik'
 recipe 'piwik::master', "This recipe installs piwik on one host and let's you configure it by hitting /index.php. It will run archive.sh hourly on this host"
 recipe 'piwik::slave', 'This recipe installs a piwik instance which connects as additional tracking server to an existing piwik instance (DB)'
 
-depends 'mysql', '~> 5.6'
+depends 'mysql'
 depends 'runit'
 depends 'nginx'
 depends 'iptables'

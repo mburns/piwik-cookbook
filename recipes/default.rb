@@ -15,8 +15,11 @@
 # limitations under the License.
 #
 
-include_recipe 'mysql::client'
+mysql_client 'default' do
+  action :create
+end
 
+node.default['nginx']['install_method'] = 'source'
 include_recipe 'nginx::source'
 template "#{node['nginx']['dir']}/sites-available/piwik" do
   source 'nginx-site-piwik.erb'

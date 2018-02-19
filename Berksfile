@@ -4,6 +4,6 @@ metadata
 
 cookbook 'iptables'
 cookbook 'logrotate'
-cookbook 'mysql', '~> 5.6'
-cookbook 'nginx'
+cookbook 'mysql', '~> 8.5'
+cookbook 'nginx', '~> 8.0'
 cookbook 'runit'
